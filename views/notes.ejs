@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Notes</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+      }
+      .note-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+      }
+      .note-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      .note-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      .note-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      .note-contents {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 10px;
+      }
+      .note-date {
+        font-size: 12px;
+        color: #999;
+      }
+      .footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+        padding: 20px 0;
+        border-top: 2px solid #eee;
+      }
+      .create-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .create-btn:hover {
+            background-color: #45a049;
+        }
+        .header-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    gap: 5px;
+}
+
+.search-input {
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 250px;
+    transition: border-color 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+.search-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-btn:hover {
+    background-color: #45a049;
+}
+
+    </style>
+  </head>
+  <body>
+    <h1>My Notes</h1>
+
+    <div class="header">
+    <h1>My Notes</h1>
+    <div class="header-actions">
+        <form action="/notes" method="GET" class="search-form">
+            <input 
+                type="text" 
+                name="search" 
+                placeholder="Search notes..." 
+                value="<%= typeof search !== 'undefined' ? search : '' %>"
+                class="search-input"
+            />
+            <button type="submit" class="search-btn">🔍</button>
+        </form>
+        <a href="/notes/new" class="create-btn">+ Create New Note</a>
+    </div>
+</div>
+
+
+    <% if (notes.length === 0) { %>
+    <p>No notes available.</p>
+    <% } else { %> <% notes.forEach(function(note) { %>
+    <a href="/notes/<%= note.id %>" class="note-link">
+      <div class="note-card">
+        <div class="note-title"><%= note.title %></div>
+        <div class="note-contents"><%= note.contents %></div>
+        <div class="note-date">
+          Created: <%= new Date(note.created_at).toLocaleString() %>
+        </div>
+      </div>
+    </a>
+    <% }) %> <% } %>
+
+
+
+    <div class="footer">
+      <h1>My Notes</h1>
+      <a href="/notes/new" class="create-btn">+ Create New Note</a>
+    </div>
+  </body>
+</html>
